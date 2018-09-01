@@ -2,6 +2,7 @@ const saltRounds = 10;
 var express = require('express');
 var bcrypt = require('bcrypt');
 var passport = require('passport');
+var _ = require('lodash');
 var localStrategy = require('passport-local').Strategy;
 var router = express.Router();
 
@@ -79,10 +80,11 @@ router.get('/register', (req, res, next) => {
 
 // Dashboard
 router.get('/dashboard', authenticationMiddleware(), (req, res) => {
-  console.log(req.session);
+  console.log(req.session.passport.user);
+
   res.render('dashboard', {
     title: 'Dashboard | WMMA',
-    emailid: 'hello@rohankalgutkar.in'
+    user: req.session.passport.user
   })
 });
 
@@ -149,7 +151,7 @@ passport.deserializeUser(function(user_id, done) {
 
 function authenticationMiddleware() {
   return (req, res, next) => {
-    console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
+    // console.log(`req.session.passport.user: ${JSON.stringify(req.session.passport)}`);
 
     if (req.isAuthenticated()) return next();
     res.redirect('/login')
