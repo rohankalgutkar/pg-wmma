@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost:27017/pg-wmma', { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI || 'mongodb://localhost:27017/pg-wmma', { useNewUrlParser: true });
 
 module.exports = {
   mongoose
