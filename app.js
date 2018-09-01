@@ -10,6 +10,14 @@ var bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+// Auth
+var session = require('express-session');
+var session = require('express-session');
+var passport   = require('passport');
+var {mongoose} = require('./db/mongoose');
+var MongoStore = require('connect-mongo')(session);
+// var connection = mongoose.createConnection(connectionOptions);
+
 var app = express();
 
 // view engine setup
@@ -25,6 +33,18 @@ app.use(bodyParser.urlencoded({ // to support URL-encoded bodies
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Auth setup
+app.use(session({
+  secret: 'salt&pepper',
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
+  // cookie: { secure: true }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
