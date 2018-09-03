@@ -83,13 +83,33 @@ router.get('/dashboard', authenticationMiddleware(), (req, res) => {
   console.log(req.session.passport.user);
 
   res.render('dashboard', {
-    title: 'Dashboard | WMMA',
-    user: req.session.passport.user
+    title: 'Dashboard | WMMA'
+  })
+});
+
+// Assets
+router.get('/assets', authenticationMiddleware(), (req, res) => {
+  res.render('assets', {
+    title: 'Assets | WMMA'
+  })
+});
+
+// Liabilities
+router.get('/liabilities', authenticationMiddleware(), (req, res) => {
+  res.render('liabilities', {
+    title: 'Liabilities | WMMA'
+  })
+});
+
+// EMIs
+router.get('/emi', authenticationMiddleware(), (req, res) => {
+  res.render('emi', {
+    title: 'EMIs | WMMA'
   })
 });
 
 
-// Dashboard
+// Logout
 router.get('/logout', (req, res) => {
   req.logout();
   req.session.destroy();

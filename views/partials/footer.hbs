@@ -1,6 +1,37 @@
 <footer class="footer">
-  <div class="container">
-    <p class="text-muted"><small> &copy; 2018 Where Mah Money At?!, Inc.
+    <div class="container" style="padding-bottom: 20px">
+      <div class="row">
+        {{#if isAuthenticated}}
+        <div class="offset-md-1 col-md-2">
+          <a class="btn btn-sm btn-outline-primary" href="/dashboard"><i class="fa fa-passport"></i> Dashboard</a>
+        </div>
+        <div class="col-md-2">
+          <a class="btn btn-sm btn-outline-primary" href="/assets"><i class="fa fa-passport"></i> Assets</a>
+        </div>
+        <div class="col-md-2">
+          <a class="btn btn-sm btn-outline-primary" href="/liabilities"><i class="fa fa-upload"></i> Liabilities</a>
+        </div>
+        <div class="col-md-2">
+          <a class="btn btn-sm btn-outline-primary" href="/emi"><i class="fa fa-credit-card"></i> EMIs</a>
+        </div>
+        <div class="col-md-2">
+          <a class="btn btn-sm btn-outline-info" href="/logout"><i class="fa fa-power-off"></i> Logout</a>
+        </div>
+        {{else}}
+        <div class="offset-md-5 col-md-1">
+          <a class="btn btn-sm btn-outline-success" href="/login"><i class="fa fa-user-check"></i> Login</a>
+        </div>
+        <div class="col-md-1">
+          <a class="btn btn-sm btn-outline-primary" href="/register"><i class="fa fa-user-plus"></i> Register</a>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+
+
+
+    <div class="container">
+      <p class="text-muted"><small> &copy; 2018 Where Mah Money At?!, Inc.
     <br>Designed and developed with ❤️  by <a href="https://rohankalgutkar.in">Rohan Kalgutkar</a></small></p>
-  </div>
+    </div>
 </footer>
