@@ -13,6 +13,9 @@ var {
   User
 } = require('../db/models/user');
 
+// APIs
+var AssetManagement = require('../api/AssetManagement');
+
 // Auth
 passport.use(new localStrategy(
   function(username, password, done) {
@@ -87,14 +90,16 @@ router.get('/dashboard', authenticationMiddleware(), (req, res) => {
   })
 });
 
-// Assets
+// Assets ---------------------------------------
 router.get('/assets', authenticationMiddleware(), (req, res) => {
+    var payload = AssetManagement.getAssets(req);
+    console.log('payload: ' + JSON.stringify(payload));
   res.render('assets', {
-    title: 'Assets | WMMA'
+    title: 'Assets | WMMA', payload
   })
 });
 
-// Liabilities
+// Liabilities ---------------------------------------
 router.get('/liabilities', authenticationMiddleware(), (req, res) => {
   res.render('liabilities', {
     title: 'Liabilities | WMMA'
@@ -156,6 +161,19 @@ router.post('/register', (req, res) => {
       });
   });
 });
+
+// Assets ---------------------------------------------------------------
+
+// Add Bank
+router.post('/addbank', authenticationMiddleware(), (req, res) => {
+  console.log('Add bank form data: ' + JSON.stringify(req.body));
+  res.redirect('/assets')
+});
+
+// Add Investment
+// router.post('/addinvestment', authenticationMiddleware(), (req, res) => {
+//   res.redirect('/assets');
+// });
 
 // Auth setup
 passport.serializeUser(function(user_id, done) {

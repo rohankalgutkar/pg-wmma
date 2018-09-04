@@ -2,13 +2,105 @@
 
 <body class="text-center">
   <div class="container">
+
     <div class="row">
       <div class="col-md-12">
         <h2>These are your assets.</h2>
       </div>
+
+      <div class="col-md-12">
+        {{#unless payload.bankSetup}}
+          <p>Your Bank accounts are not set up. </p>
+        {{/unless}}
+        {{#unless payload.investmentSetup}}
+          <p>Your Investments are not set up.</p>
+        {{/unless}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="offset-md-4 col-md-2">
+        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addbank">
+  <i class="fa fa-piggy-bank"></i> Add Bank Account
+</button>
+      </div>
+      <div class="col-md-2">
+        <button type="button" class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#addinvestment">
+  <i class="fa fa-money-check-alt"></i> Add Investment
+</button>
+      </div>
+
+    </div>
   </div>
-</div>
   {{> footer}}
+
+  <!-- Bank Modal -->
+  <div class="modal fade" id="addbank" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle"><i class="fa fa-piggy-bank"></i> Add Bank</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/addbank" method="post">
+
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" name="bankname" placeholder="Bank Name">
+              </div>
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" name="amount" placeholder="Initial Amount">
+              </div>
+            </div>
+
+            <input type="hidden" name="userid" value="{{user._id}}">
+
+            <button type="submit" class="btn btn-block btn-outline-primary">Add</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Investment Modal -->
+  <div class="modal fade" id="addinvestment" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle"><i class="fa fa-money-check-alt"></i> Add Investment</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/addinvestment" method="post">
+
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" name="bankname" placeholder="Investment Name">
+              </div>
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" name="initamount" placeholder="Initial Amount">
+              </div>
+              <div class="form-group col-md-12">
+                <input type="text" class="form-control" name="currentamount" placeholder="Current Amount">
+              </div>
+            </div>
+
+            <input type="hidden" name="userid" value="{{user._id}}">
+
+            <button type="submit" class="btn btn-block btn-outline-primary">Add</button>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 
 </html>
